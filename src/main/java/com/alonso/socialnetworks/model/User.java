@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,11 +29,32 @@ public class User {
 
 	@Column(name = "password")
 	private String password;
-
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="users_users")
-	@JoinColumn(name="users_id")
+	
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(name="users_users",
+	 joinColumns=@JoinColumn(name="users_Id"),
+	 inverseJoinColumns=@JoinColumn(name="friends_id")
+	)
 	private Set<User> friends;
+
+	@ManyToMany
+	@JoinTable(name="users_users",
+	 joinColumns=@JoinColumn(name="friends_id"),
+	 inverseJoinColumns=@JoinColumn(name="users_Id")
+	)
+	private Set<User> friendOf;
+
+//	@OneToMany(fetch=FetchType.EAGER)
+//	@JoinColumn(name="friends_id")
+//	private Set<User> friends;
+//
+//	public Set<User> getFriends() {
+//		return friends;
+//	}
+//
+//	public void setFriends(Set<User> friends) {
+//		this.friends = friends;
+//	}
 
 	public Set<User> getFriends() {
 		return friends;
@@ -41,6 +62,14 @@ public class User {
 
 	public void setFriends(Set<User> friends) {
 		this.friends = friends;
+	}
+
+	public Set<User> getFriendOf() {
+		return friendOf;
+	}
+
+	public void setFriendOf(Set<User> friendOf) {
+		this.friendOf = friendOf;
 	}
 
 	public Integer getId() {

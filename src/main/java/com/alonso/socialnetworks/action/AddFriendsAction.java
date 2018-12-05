@@ -32,7 +32,16 @@ public class AddFriendsAction extends ActionSupport implements SessionAware {
 		System.out.println(users.size());
 		
 		System.out.println(currentSession.getUserName()+" currentSession");
-		System.out.println(users.get(0).getUserName()+" users");
+		
+		 try
+	        { 
+			 System.out.println(users.get(0).getUserName()+" users");
+	        } 
+	        catch(IndexOutOfBoundsException e) 
+	        { 
+	            addFieldError("name", "User doesn't exist exception handling!");
+	        } 
+		
 		
 		if (users.isEmpty()) {
 			addFieldError("name", "User doesn't exist");
@@ -45,12 +54,12 @@ public class AddFriendsAction extends ActionSupport implements SessionAware {
 			return;
 		}
 		
-		for (User u: currentSession.getFriends()){
-			if (u.getUserName().equals(users.get(0).getUserName())) {
-				addFieldError("name", "this is already a friend of you!");
-				return;
-			}			
-		}
+//		for (User u: currentSession.getFriends()){
+//			if (u.getUserName().equals(users.get(0).getUserName())) {
+//				addFieldError("name", "this is already a friend of you!");
+//				return;
+//			}			
+//		}
 		
 		dao.close();
 		

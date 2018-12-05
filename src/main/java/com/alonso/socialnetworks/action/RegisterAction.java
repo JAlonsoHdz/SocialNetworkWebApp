@@ -59,6 +59,7 @@ public class RegisterAction extends ActionSupport{
 	public String execute() {
 		UserDAO dao = new UserDAO();
 		dao.insertUser(user);
+		addFieldError("user.userName", "New user has been created");
 		dao.close();
 		return SUCCESS;
 	}
