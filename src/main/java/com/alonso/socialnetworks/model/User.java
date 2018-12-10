@@ -37,7 +37,7 @@ public class User {
 	)
 	private Set<User> friends;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name="users_users",
 	 joinColumns=@JoinColumn(name="friends_id"),
 	 inverseJoinColumns=@JoinColumn(name="users_Id")

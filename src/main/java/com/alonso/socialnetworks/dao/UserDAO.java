@@ -30,6 +30,12 @@ public class UserDAO {
 
 		return users;
 	}
+	
+	public List<User> getFriendsById(int id) {
+		List users = session.createQuery("from User left outer join users_users where users_id in (select friends_id from users_users where users_id = :id)").setParameter("id", id).list();
+
+		return users;
+	}
 
 	public void update(User user) {
 		session.beginTransaction();

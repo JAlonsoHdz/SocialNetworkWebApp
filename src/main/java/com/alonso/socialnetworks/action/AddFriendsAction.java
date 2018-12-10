@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.interceptor.SessionAware;
 import org.hibernate.SessionFactory;
@@ -65,6 +67,7 @@ public class AddFriendsAction extends ActionSupport implements SessionAware {
 		
 	}
 	
+//	public String execute(HttpServletRequest req, HttpServletRequest res) {
 	public String execute() {
 		UserDAO dao = new UserDAO();
 		
@@ -78,7 +81,8 @@ public class AddFriendsAction extends ActionSupport implements SessionAware {
 		System.out.println(friends+" execute method");
 
 		dao.update(currentSession);		
-		dao.close();				
+		dao.close();
+//		req.setAttribute("friendList", dao.getFriendsById(1));
 		return SUCCESS;
 	}
 	
